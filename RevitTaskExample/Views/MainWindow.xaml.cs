@@ -14,7 +14,7 @@ namespace RevitTaskExample
             InitializeComponent();
         }
 
-        public MainWindow(MainViewModel viewModel) : this()
+        public MainWindow(TestMainViewModel viewModel) : this()
         {
             var id = Thread.CurrentThread.ManagedThreadId;
             DataContext = viewModel;

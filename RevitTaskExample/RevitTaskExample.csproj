@@ -37,18 +37,16 @@
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == '2020|AnyCPU' ">
     <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
+    <DebugType>full</DebugType>
+    <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <Choose>
     <When Condition=" '$(Configuration)'=='2016' ">
       <ItemGroup>
-        <Reference Include="RevitAPI, Version=16.0.0.0, Culture=neutral, processorArchitecture=AMD64">
-          <SpecificVersion>False</SpecificVersion>
-          <HintPath>..\packages\Revit_All_Main_Versions_API_x64.$(Configuration).0.1\lib\net45\RevitAPI.dll</HintPath>
-          <Private>False</Private>
-        </Reference>
         <Reference Include="RevitAPIUI, Version=16.0.0.0, Culture=neutral, processorArchitecture=AMD64">
           <SpecificVersion>False</SpecificVersion>
-          <HintPath>..\packages\Revit_All_Main_Versions_API_x64.$(Configuration).0.1\lib\net45\RevitAPIUI.dll</HintPath>
+          <HintPath>C:\Program Files\Autodesk\Revit 2020\RevitAPIUI.dll</HintPath>
           <Private>False</Private>
         </Reference>
       </ItemGroup>
@@ -104,6 +102,7 @@
       <SubType>Designer</SubType>
     </Page>
     <Compile Include="UiCommand.cs" />
+    <Compile Include="ViewModels\TestMainViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="Views\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
@@ -119,7 +118,7 @@
     <ProjectReference Include="..\RevitTask\RevitTask.csproj">
       <Project>{4c58a8df-3c83-46d8-b340-3459daac6744}</Project>
       <Name>RevitTask</Name>
-      <Private>False</Private>
+      <Private>True</Private>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
@@ -128,6 +127,9 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="DS.RevitLib.Utils">
+      <HintPath>..\..\DS.RevitLib.Utils\DS.RevitLib.Utils\bin\Debug\DS.RevitLib.Utils.dll</HintPath>
+    </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
@@ -139,4 +141,8 @@
     <None Include="RevitTaskExample.addin" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>xcopy /Y  "$(TargetDir)*.*" "$(AppData)\Autodesk\Revit\Addins\2020\$(TargetName)\"
+Copy "$(ProjectDir)$(TargetName).addin" "$(AppData)\Autodesk\Revit\Addins\2020"</PostBuildEvent>
+  </PropertyGroup>
 </Project>

@@ -15,11 +15,20 @@ namespace RevitTaskExample
             ref string message,
             ElementSet elements)
         {
+            UIApplication uiapp = commandData.Application;
+            Autodesk.Revit.ApplicationServices.Application application = uiapp.Application;
+
+            UIDocument uidoc = uiapp.ActiveUIDocument;
+            Document doc = uiapp.ActiveUIDocument.Document;
+
+
             var id = Thread.CurrentThread.ManagedThreadId;
 
-            var viewModel = new MainViewModel();
-
+            var viewModel = new TestMainViewModel(uidoc, doc);
             var mainWindow = new MainWindow(viewModel);
+            //var viewModel = new MainViewModel();
+            //var mainWindow = new MainWindow();
+
 
             mainWindow.Show();
 
