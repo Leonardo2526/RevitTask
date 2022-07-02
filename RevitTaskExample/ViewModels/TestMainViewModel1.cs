@@ -5,6 +5,7 @@ using Autodesk.Revit.UI.Selection;
 using System;
 using System.Windows.Input;
 using Revit.Async;
+using System.Threading.Tasks;
 
 namespace RevitTaskExample
 {
@@ -19,7 +20,7 @@ namespace RevitTaskExample
             _Doc = Doc;
             _Uidoc = Uidoc;
 
-            RunLongRevit = new UiCommand(Operation);
+            RunLongRevit = new UiCommand(Operation2);
         }
 
         public ICommand RunLongRevit { get; set; }
@@ -40,7 +41,7 @@ namespace RevitTaskExample
             Move(element, new XYZ(-2, 0, 0));
         }
 
-        private async void Mover1()
+        private async Task Mover1()
         {
             try
             {
@@ -52,7 +53,7 @@ namespace RevitTaskExample
             }
         }
 
-        private async void Mover2()
+        private async Task Mover2()
         {
             try
             {
@@ -69,6 +70,26 @@ namespace RevitTaskExample
             Mover1();
             TaskDialog.Show("Revit", "Test");
             Mover2();
+        }
+
+        private async void Operation1()
+        {
+          await RevitTask.RunAsync(
+           app =>
+           {
+               Mover1();
+               TaskDialog.Show("Revit", "Test1");
+               TaskDialog.Show("Revit", "Test2");
+               TaskDialog.Show("Revit", "Test3");
+               Mover2();
+           });         
+        }
+
+        private async void Operation2()
+        {
+            await Mover1();
+            TaskDialog.Show("Revit", "Test");
+            await Mover2();
         }
 
 
