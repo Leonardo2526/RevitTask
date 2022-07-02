@@ -102,8 +102,7 @@
       <SubType>Designer</SubType>
     </Page>
     <Compile Include="UiCommand.cs" />
-    <Compile Include="ViewModels\TestMainViewModel.cs" />
-    <Compile Include="ViewModels\MainViewModel.cs" />
+    <Compile Include="ViewModels\TestMainViewModel1.cs" />
     <Compile Include="Views\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -115,13 +114,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\RevitTask\RevitTask.csproj">
-      <Project>{4c58a8df-3c83-46d8-b340-3459daac6744}</Project>
-      <Name>RevitTask</Name>
-      <Private>True</Private>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
+    <PackageReference Include="Revit.Async">
+      <Version>2.0.1</Version>
+    </PackageReference>
     <PackageReference Include="Revit_All_Main_Versions_API_x64" ExcludeAssets="Runtime">
       <Version>$(Configuration).0.1</Version>
     </PackageReference>

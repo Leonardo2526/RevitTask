@@ -1,6 +1,7 @@
 ﻿using Autodesk.Revit.Attributes;
 using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
+using Revit.Async;
 using System.Threading;
 
 namespace RevitTaskExample
@@ -20,11 +21,12 @@ namespace RevitTaskExample
 
             UIDocument uidoc = uiapp.ActiveUIDocument;
             Document doc = uiapp.ActiveUIDocument.Document;
-
+            RevitTask.Initialize(uiapp);
 
             var id = Thread.CurrentThread.ManagedThreadId;
 
-            var viewModel = new TestMainViewModel(uidoc, doc);
+            //var viewModel = new TestMainViewModel(uidoc, doc);
+            var viewModel = new TestMainViewModel1(uidoc, doc);
             var mainWindow = new MainWindow(viewModel);
             //var viewModel = new MainViewModel();
             //var mainWindow = new MainWindow();
